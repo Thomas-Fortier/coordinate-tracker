@@ -38,6 +38,17 @@ app.use(corsMiddleware);
 // Routes
 app.use('/api/v1/coordinates', coordinatesRoute);
 
+// Serve static files
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 // Listen
 app.listen(PORT, () => {
   console.log(`API / server is listening on port ${PORT}...`);
