@@ -54,6 +54,11 @@ export default function Coordinates() {
       headers: { 'Content-Type': 'application/json' }
     })
     .then(res => {
+      setName('');
+      setX('');
+      setY('');
+      setZ('');
+
       res.json();
       getData();
     });
@@ -65,25 +70,40 @@ export default function Coordinates() {
 
   if (loading) return <p>Loading cooridnates...</p>
 
-  return (
-    <div>
-      <ul>
+  const tableBody = (
+    <table>
+      <tbody>
         {
           data.map(coordinate => {
             return (
-              <li key={coordinate._id}>
-                <div>
-                  <p>{coordinate.name}</p>
-                  <p>{coordinate.position[0]}</p>
-                  <p>{coordinate.position[1]}</p>
-                  <p>{coordinate.position[2]}</p>
-                  <Delete key={coordinate._id} id={coordinate._id} getData={getData}/>
-                </div>
-              </li>
+              <tr key={coordinate._id}>
+                <td className="name"><p>{coordinate.name}</p></td>
+                <td>{coordinate.position[0]}</td>
+                <td>{coordinate.position[1]}</td>
+                <td>{coordinate.position[2]}</td>
+                
+                <td><Delete key={coordinate._id} id={coordinate._id} getData={getData}/></td>
+              </tr>
             )
           })
         }
-      </ul>
+      </tbody>
+    </table>
+  );
+
+  const nothing = (
+    <p className="nothing">Nothing to show yet!</p>
+  );
+
+  const bodyRender = data.length === 0 ? nothing : tableBody;
+
+  return (
+    <>
+      <div className="container">
+        <h1 className="title">Coordinates</h1>
+        
+        {bodyRender}
+      </div>
 
       <form onSubmit={submit}>
         <input type='text' name="name" placeholder="Name" value={name} onChange={onChange} />
@@ -91,8 +111,8 @@ export default function Coordinates() {
         <input type='text' name="y" placeholder="Y" value={y} onChange={onChange} />
         <input type='text' name="z" placeholder="Z" value={z} onChange={onChange} />
 
-        <input type='submit' value="Add" />
+        <input className="add" type='submit' value="+" />
       </form>
-    </div>
+    </>
   );
 }

@@ -8,6 +8,6 @@ export default function Delete(props) {
   }
 
   return (
-    <button onClick={remove}>Delete</button>
+    <button className="delete" onClick={remove}>🗑</button>
   );
 }
