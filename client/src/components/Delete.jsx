@@ -1,6 +1,8 @@
+import getProxy from "../config/config";
+
 export default function Delete(props) {
   const remove = event => {
-    fetch(`${process.env.PROXY}/${props.id}`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' } })
+    fetch(`${getProxy()}/${props.id}`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' } })
       .then((res) => {
         res.json();
         props.getData();

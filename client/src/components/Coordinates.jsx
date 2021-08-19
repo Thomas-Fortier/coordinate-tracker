@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Delete from "./Delete";
+import getProxy from '../config/config';
 
 export default function Coordinates() {
   const [data, setData] = useState(null);
@@ -14,7 +15,7 @@ export default function Coordinates() {
 
   // Fetches the data
   const getData = async () => {
-    await axios(process.env.PROXY)
+    await axios(getProxy())
       .then(response => {
         setData(response.data);
       })
@@ -48,7 +49,7 @@ export default function Coordinates() {
   const submit = event => {
     event.preventDefault();
 
-    fetch(process.env.PROXY, {
+    fetch(getProxy(), {
       method: 'POST',
       body: JSON.stringify({ name, x, y, z }),
       headers: { 'Content-Type': 'application/json' }
