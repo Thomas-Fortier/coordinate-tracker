@@ -39,9 +39,6 @@ app.use(corsMiddleware);
 app.use('/api/v1/coordinates', coordinatesRoute);
 
 // Serve static files
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {
