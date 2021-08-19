@@ -24,8 +24,16 @@ database.once('open', () => {
 });
 
 // Middleware
+var corsMiddleware = function(req, res, next) {
+  res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
+
+  next();
+}
+
 app.use(cors());
 app.use(express.json());
+app.use(corsMiddleware);
 
 // Routes
 app.use('/api/v1/coordinates', coordinatesRoute);
