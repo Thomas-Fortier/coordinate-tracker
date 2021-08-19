@@ -14,7 +14,7 @@ export default function Coordinates() {
 
   // Fetches the data
   const getData = async () => {
-    await axios('http://localhost:5000/api/v1/coordinates')
+    await axios(process.env.PROXY)
       .then(response => {
         setData(response.data);
       })
@@ -48,7 +48,7 @@ export default function Coordinates() {
   const submit = event => {
     event.preventDefault();
 
-    fetch('http://localhost:5000/api/v1/coordinates', {
+    fetch(process.env.PROXY, {
       method: 'POST',
       body: JSON.stringify({ name, x, y, z }),
       headers: { 'Content-Type': 'application/json' }
