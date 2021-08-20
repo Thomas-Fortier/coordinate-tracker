@@ -16,7 +16,7 @@ export default class CoordinatesController {
         res.status(400).json({ error, status: 'Not saved' });
     });
 
-    res.status(200).json({ status: 'Saved' });
+    res.status(200).json(newCoordinate);
   }
 
   static async delete(req, res, next) {
@@ -27,7 +27,7 @@ export default class CoordinatesController {
         res.status(400).json({ error, status: 'Not deleted' });
     });
 
-    res.status(200).json({ status: 'Deleted' });
+    res.status(200).json(id);
   }
 }
 
